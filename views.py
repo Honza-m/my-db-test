@@ -8,7 +8,7 @@ import os, psycopg2
 def index():
     try:
         DATABASE_URL = os.environ['DATABASE_URL']
-        con = psycopg2.connect(DATABASE_URL, sslmode='require')
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         cur = conn.cursor()
         r = cur.execute("""SELECT * FROM Users""")
         return str(r)
