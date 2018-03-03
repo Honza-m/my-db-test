@@ -2,15 +2,12 @@ from flask import Flask
 app = Flask(__name__)
 
 #imports
-import os, psycopg2
+import database
 
 @app.route('/')
 def index():
     try:
-        DATABASE_URL = os.environ['DATABASE_URL']
-        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-        cur = conn.cursor()
-        r = cur.execute("""SELECT * FROM Users""")
+        r = database.Get("People").get_all()
         return str(r)
     except Exception as e:
         return str(e)
