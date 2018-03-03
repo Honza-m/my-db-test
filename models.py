@@ -1,8 +1,8 @@
 #connect
-from flask_run import app
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy(app)
+db = SQLAlchemy(Flask('views'))
 
 #models
 user_roles = db.Table('user_roles',
