@@ -1,16 +1,15 @@
-from flask import Flask
-app = Flask(__name__)
-
 #imports
-import database
+from flask_run import app
+from models import User
 
 @app.route('/')
 def index():
     try:
-        r = database.Get("People").get_all()
-        return str(r)
+        return "All is well"
     except Exception as e:
         return str(e)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/user/<username>')
+def userDash(username):
+    user = User.query.filter_by(name=username).first_or_404()
+    return "{}, {}, {}, {}".format(user.name, user.email, user.role.name, user.role.description)
