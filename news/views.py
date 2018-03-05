@@ -4,7 +4,7 @@ logger = logging.getLogger(__name__)
 #imports
 from news import app
 from news.models import User
-from flask_security import login_required
+from flask_security import login_required, current_user
 
 @app.route('/')
 def index():
@@ -14,9 +14,9 @@ def index():
         return str(e)
 
 
-@app.route('/user/<username>')
+@app.route('/user')
 @login_required
-def userDash(username):
+def userDash():
     """User dashboard"""
-    user = User.query.filter_by(name=username).first_or_404()
+    user = current_user
     return "{}, {}, {}, {}".format(user.name, user.email, user.roles[0].name, user.roles[0].description)
