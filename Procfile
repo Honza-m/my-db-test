@@ -1,1 +1,1 @@
-web: gunicorn news:app
+web: gunicorn -w 1 news:app --preload
